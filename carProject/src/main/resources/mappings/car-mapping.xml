@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CarDAO">
+
+	<insert id="insertCar" parameterType="car">
+		<![CDATA[
+			INSERT INTO car(carnum, carname)
+			VALUES(#{carnum}, #{carname})
+		]]>
+	</insert>
+	
+
+	
+	<update id="updateCar" >
+		<![CDATA[
+			UPDATE car SET carnum=#{carnum}, carname=#{carname} WHERE SEQ=#{seq}
+		]]>
+	</update>
+	
+	<delete id="deleteCar">
+		<![CDATA[
+			DELETE FROM car WHERE SEQ=#{seq}
+		]]>
+	</delete>
+	
+
+
+	<select id="getCarList" resultType="car">
+		SELECT * 
+		FROM car
+		WHERE 1 = 1
+		ORDER BY SEQ asc		
+	</select>
+	
+		<update id="createCar">
+		<![CDATA[
+			CREATE TABLE car (
+				SEQ INT PRIMARY KEY AUTO_INCREMENT,
+				carnum VARCHAR(255),
+				carname VARCHAR(255)
+			)
+		]]>
+	</update>
+	
+	<!-- DROP TABLE 문 추가 -->
+	<update id="dropCar">
+		<![CDATA[
+			DROP TABLE car
+		]]>
+	</update>
+	
+	
+</mapper>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CarcomDAO">
+
+	<insert id="insertCarcom" parameterType="carcom">
+  INSERT INTO carcom(SEQ, carnum, carname)
+  VALUES(#{seq}, (SELECT carnum FROM car WHERE SEQ = #{seq}), (SELECT carname FROM car WHERE SEQ = #{seq}))
+</insert>
+	
+	<update id="updateCarcom" >
+		<![CDATA[
+			UPDATE carcom SET carnum=#{carnum} WHERE SEQ=#{seq}
+		]]>
+	</update>
+	
+	<delete id="deleteCarcom">
+		<![CDATA[
+			DELETE FROM carcom WHERE SEQ=#{seq}
+		]]>
+	</delete>
+	
+	<select id="getCarcom" resultType="carcom">
+		<![CDATA[
+			SELECT * FROM carcom WHERE SEQ=#{seq}
+		]]>	
+	</select>
+
+	<select id="getCarcomList" resultType="carcom">
+		SELECT * 
+		FROM carcom
+		WHERE 1 = 1
+		ORDER BY SEQ desc		
+	</select>
+	
+	<!-- CREATE TABLE 문 추가 -->
+	<update id="createCarcom">
+		<![CDATA[
+			CREATE TABLE carcom (
+				SEQ INT PRIMARY KEY AUTO_INCREMENT,
+				carnum VARCHAR(255),
+				carname VARCHAR(255)
+			)
+		]]>
+	</update>
+	
+	<!-- DROP TABLE 문 추가 -->
+	<update id="dropCarcom">
+		<![CDATA[
+			DROP TABLE carcom
+		]]>
+	</update>
+	
+
+
+</mapper>
