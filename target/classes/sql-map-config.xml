@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- Alias 설정 -->
+	<typeAliases>
+	
+		<typeAlias type="com.carProject.biz.carcom.CarcomVO" alias="carcom"></typeAlias> 
+		<typeAlias type="com.carProject.biz.car.CarVO" alias="car"></typeAlias>
+		
+	</typeAliases>
+
+	<!-- Sql Mapper 설정  -->
+	<mappers>
+			 
+		<mapper resource="mappings/carcom-mapping.xml" />  
+		<mapper resource="mappings/car-mapping.xml" />
+	
+	
+	</mappers>
+</configuration>
