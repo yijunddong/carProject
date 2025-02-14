@@ -12,15 +12,17 @@ ws.onmessage = function(event) {
     }
 };
 
-// 음성 출력 함수
-function speak(text) {
-    var utterance = new SpeechSynthesisUtterance(text + " 차주님 검사가 완료되었습니다. 판정실로 와주시기 바랍니다.");
+// 음성 호출 함수
+function speak(plateNo) {
+    var model = $('#vehicleModel').text();  // 차종 정보 가져오기
+    var utterance = new SpeechSynthesisUtterance(plateNo + " " + model + " 차주님 판정실로 와주시기 바랍니다.");
     utterance.lang = 'ko-KR';
-    utterance.rate = 0.9;
+    utterance.rate = 0.9;  // 말하기 속도 (0.1 ~ 10)
+    utterance.pitch = 1.0; // 음성 피치 (0 ~ 2)
     speechSynthesis.speak(utterance);
 }
 
-// 모달 관련 함수들
+// 모달 표시 및 완료 처리 함수
 function showModal(id, model, plateNo) {
     $('#vehicleId').val(id);
     $('#vehiclePlateNo').text(plateNo);
@@ -28,11 +30,11 @@ function showModal(id, model, plateNo) {
     $('#confirmationModal').modal('show');
 }
 
-// 자동 새로고침
-function autoRefresh() {
-    setTimeout(function() {
-        location.reload(true);
-    }, 27 * 60 * 1000);
+// 검사 완료 처리 함수
+function completeCheck() {
+    var plateNo = $('#vehiclePlateNo').text();
+    speak(plateNo);  // 음성 호출
+    $('#confirmationModal').modal('hide');
 }
 
 // 시간 표시 함수
@@ -51,8 +53,4 @@ function updateCurrentTime() {
 $(document).ready(function() {
     updateCurrentTime();
     setInterval(updateCurrentTime, 60000);
-});
-
-window.onload = function() {
-    autoRefresh();
-}; 
+}); 

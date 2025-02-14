@@ -18,11 +18,8 @@
         </span>
         <div class="ml-auto d-flex align-items-center">
             <div class="current-time mr-3">
-                <i class="far fa-clock"></i> <span id="current-time"></span>
+                <i class="far fa-clock"></i> <span id="currengit push origin fet-time"></span>
             </div>
-            <button class="btn btn-outline-light" onclick="location.reload()">
-                <i class="fas fa-sync-alt"></i> 새로고침
-            </button>
         </div>
     </nav>
 
@@ -56,11 +53,8 @@
                                         <td>123가4567</td>
                                         <td>현대 아반떼</td>
                                         <td>
-                                            <button class="btn btn-sm btn-primary" onclick="speak('123가4567 현대 아반떼')">
-                                                <i class="fas fa-volume-up"></i> 호출
-                                            </button>
                                             <button class="btn btn-sm btn-success" onclick="showModal(1, '현대 아반떼', '123가4567')">
-                                                <i class="fas fa-check"></i> 완료
+                                                <i class="fas fa-check"></i> 검사 완료
                                             </button>
                                         </td>
                                     </tr>
@@ -126,6 +120,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-primary" onclick="speak($('#vehiclePlateNo').text())">
+                        <i class="fas fa-volume-up"></i> 호출
+                    </button>
                     <button type="button" class="btn btn-success" onclick="completeCheck()">완료</button>
                 </div>
             </div>
