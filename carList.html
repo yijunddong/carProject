@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>접수실</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/carList.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/carList.js"></script>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-gradient-primary">
+        <span class="navbar-brand mb-0 h1">
+            <i class="fas fa-clipboard-list"></i> 접수실
+            <span class="badge badge-light ml-2">
+                <i class="fas fa-car-side"></i> 대기 3대
+            </span>
+        </span>
+        <div class="ml-auto d-flex align-items-center">
+            <div class="current-time mr-3">
+                <i class="far fa-clock"></i> <span id="current-time"></span>
+            </div>
+            <button type="button" class="btn btn-light btn-register" onclick="showRegisterModal()">
+                <i class="fas fa-plus-circle"></i> 신규 접수
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid py-4">
+        <div class="row">
+            <!-- 대기 차량 목록 -->
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">대기 차량</h5>
+                        <span class="badge badge-light">총 3대</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>NO.</th>
+                                        <th>차량번호</th>
+                                        <th>차종</th>
+                                        <th>작업</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pendingList">
+                                    <tr>
+                                        <td>1</td>
+                                        <td>123가4567</td>
+                                        <td>현대 아반떼</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary" onclick="showEditModal(1, '123가4567', '현대 아반떼')">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger" onclick="showDeleteModal(1)">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 완료 차량 목록 -->
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">완료 차량</h5>
+                        <span class="badge badge-light">총 2대</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>NO.</th>
+                                        <th>차량번호</th>
+                                        <th>차종</th>
+                                        <th>상태</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="completedList">
+                                    <tr>
+                                        <td>1</td>
+                                        <td>456나7890</td>
+                                        <td>기아 K5</td>
+                                        <td>
+                                            <span class="badge badge-success">
+                                                <i class="fas fa-check"></i> 완료
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 신규 접수 모달 -->
+    <div class="modal fade" id="registerModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-car"></i> 신규 차량 접수
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <form id="carListForm" onsubmit="handleRegister(event)">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>차량번호</label>
+                            <input type="text" name="plateNo" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>차종</label>
+                            <input type="text" name="model" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                        <button type="submit" class="btn btn-primary">접수</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 수정 모달 -->
+    <div class="modal fade" id="editModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-edit"></i> 차량 정보 수정
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <form id="editForm" onsubmit="handleEdit(event)">
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="editId">
+                        <div class="form-group">
+                            <label>차량번호</label>
+                            <input type="text" name="plateNo" id="editPlateNo" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>차종</label>
+                            <input type="text" name="model" id="editModel" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                        <button type="submit" class="btn btn-primary">수정</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 삭제 확인 모달 -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-exclamation-triangle text-danger"></i> 삭제 확인
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>정말 이 차량을 삭제하시겠습니까?</p>
+                    <input type="hidden" name="seq">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-danger" onclick="confirmDelete()">삭제</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

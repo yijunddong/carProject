@@ -1,0 +1,159 @@
+.responsive-header {
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    max-width: 3000px;
+    margin: 0 auto;
+    background-color: black;
+    height: 55px;
+    box-sizing: border-box;
+    color: white;
+}
+
+.responsive-footer {
+    width: 100%;
+    bottom: 0px;
+    height: 55px;
+    left: 0;
+    position: fixed;
+    max-width: 3000px;
+    margin: 0 auto;
+    background-color: black;
+    box-sizing: border-box;
+    color: white;
+}
+
+.logo {
+    float: left;
+    margin-left: 20px;
+    height: 100%;
+}
+
+#current-time {
+    float: right;
+    margin-right: 50px;
+    line-height: 55px;
+    font-size: xx-large;
+}
+
+@keyframes moveRightToLeft {
+    from {
+        transform: translateX(50%);
+    }
+    to {
+        transform: translateX(-500%);
+    }
+}
+
+.footer h1 {
+    animation: moveRightToLeft 60s linear infinite;
+    white-space: nowrap;
+    line-height: 34px;
+}
+
+.waitTable {
+    position: fixed;
+    top: 64px;
+    margin-right: 9px;
+    right: 0px;
+    max-height: 380px;
+    width: 24%;
+    border-collapse: collapse;
+}
+
+.comTable {
+    position: fixed;
+    top: 51%;
+    max-height: 380px;
+    margin-right: 9px;
+    right: 0px;
+    width: 24%;
+    border-collapse: collapse;
+}
+
+.modal-body {
+    text-align: center;
+}
+
+.modal-header {
+    display: block;
+    text-align: center;
+}
+
+.mainMessage {
+    font-size: 100px;
+}
+
+th {
+    text-align: center;
+    padding: 15px;
+    font-size: 1.9em;
+    border-bottom: 1px solid #ddd;
+}
+
+td {
+    text-align: center;
+    padding: 5px;
+    font-size: 1.9em;
+    border-bottom: 1px solid #ddd;
+}
+
+.waitTable th {
+    color: white;
+    background-color: #891817;
+}
+
+.comTable th {
+    color: white;
+    background-color: #1E3E89;
+}
+
+.subTitleWait {
+    color: #891817;
+    background-color: #FBADAD;
+}
+
+.subTitle {
+    color: #1E3E89;
+    background-color: #ACC1F6;
+}
+
+.tableContentWait {
+    color: black;
+    background-color: white;
+}
+
+.tableContent {
+    color: black;
+    background-color: white;
+}
+
+#coverWait {
+    background-color: #C33E3F;
+    position: fixed;
+    top: 55px;
+    bottom: 50%;
+    right: 0px;
+    width: 25%;
+}
+
+#coverCom {
+    background-color: #30243C;
+    position: fixed;
+    top: 50%;
+    height: 5008px;
+    right: 0px;
+    width: 25%;
+}
+
+.modal-dialog {
+    width: 100%;
+}
+
+.mainImg {
+    position: fixed;
+    top: 55px;
+    width: 75%;
+    height: 90%;
+} 
