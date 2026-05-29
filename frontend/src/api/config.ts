@@ -1,26 +1,9 @@
-function toWsUrl(httpBase: string): string {
-  const base = httpBase.replace(/\/$/, "");
-  if (base.startsWith("https://")) return `${base.replace(/^https/, "wss")}/ws`;
-  return `${base.replace(/^http/, "ws")}/ws`;
-}
+/** GCP 서버 — IP 변경 시 여기만 수정 */
 
-/** 브라우저 접속 호스트 기준 API 주소 (GCP IP로 열었을 때 localhost 방지) */
-function resolveApiBase(): string {
-  const fromEnv = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "");
-  if (fromEnv) return fromEnv;
+export const GCP_HOST = "34.22.99.107";
 
-  if (typeof window !== "undefined") {
-    const { hostname, protocol } = window.location;
-    if (hostname !== "localhost" && hostname !== "127.0.0.1") {
-      return `${protocol}//${hostname}:3001`;
-    }
-  }
-  return "http://localhost:3001";
-}
+export const API_BASE_URL = `http://${GCP_HOST}:3001`;
+export const WS_URL = `ws://${GCP_HOST}:3001/ws`;
 
-export const API_BASE_URL = resolveApiBase();
-
-export const WS_URL =
-  import.meta.env.VITE_WS_URL?.replace(/\/$/, "") || toWsUrl(API_BASE_URL);
-
-export const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
+/** 백엔드 연동 (목업 끄기) */
+export const USE_MOCK = false;

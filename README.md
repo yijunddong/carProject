@@ -51,17 +51,15 @@ cp .env.example .env
 npm run dev
 ```
 
-`.env` (로컬 기본값):
+**서버 IP·포트**는 코드에 바로 적혀 있습니다 (`.env` 복사 불필요).
 
-```env
-VITE_API_BASE_URL=http://localhost:3001
-VITE_WS_URL=ws://localhost:3001/ws
-VITE_USE_MOCK=false
-```
+- 프론트: `frontend/src/api/config.ts` → `GCP_HOST`
+- 백엔드: `backend/app/config.py` → `GCP_HOST`, CORS, TTS 음성
 
-브라우저: `http://localhost:5200/reception` · `/assessment` · `/waiting-display`
+브라우저: `http://localhost:5200/reception` · `/assessment` · `/waiting-display`  
+(GCP: `http://34.22.99.107:5200/...`)
 
-> **실시간 연동**: 접수·판정 완료는 WebSocket(`/ws`)으로 다른 탭/PC 화면에 즉시 반영됩니다. `VITE_USE_MOCK`은 `false`여야 합니다.
+> **실시간 연동**: WebSocket(`/ws`) — `USE_MOCK`은 `config.ts`에서 `false` (기본값).
 
 ---
 
@@ -77,7 +75,7 @@ VITE_USE_MOCK=false
 
 > `http://34.22.99.107/` (80번, nginx)만 쓰면 **502**가 날 수 있습니다. 반드시 **포트 5200·3001**을 붙이세요.
 
-`frontend/.env` · `backend/.env`에 위 IP가 들어가 있습니다. **수정 후 서버를 다시 시작**해야 반영됩니다.
+IP 변경 시 `config.ts` / `config.py`만 수정 후 서버 재시작.
 
 ```bash
 # 백엔드 재시작 (CORS .env 반영)
@@ -130,8 +128,17 @@ npm run preview
 | POST | `/api/intakes` | 접수 `{ "plate_number", "vehicle_model" }` |
 | PATCH | `/api/intakes/{id}` | `{ "status": "done" }` 판정 완료 |
 | WS | `/ws` | 실시간 `intake.created`, `intake.done` |
+| POST | `/api/tts/announce` | 판정 호출 Neural TTS (mp3) |
 
 데이터: SQLite `backend/data/intakes.db`
+
+### TTS (판정실 호출)
+
+- **1순위**: 백엔드 `edge-tts` — `ko-KR-SunHiNeural` (자연스러운 한국어 Neural)
+- **2순위**: 브라우저 `speechSynthesis` (API 실패 시)
+- 백엔드 의존성 추가 후 재설치: `pip install -r requirements.txt`
+- 음성 변경: `backend/app/config.py`의 `TTS_VOICE` (예: `ko-KR-InJoonNeural`)
+- 차량번호·차종 읽기: `backend/app/speech_korean.py` (50너2560→오십너이천오백육십, QM6→큐엠식, GV70→지브이칠공)
 
 ---
 

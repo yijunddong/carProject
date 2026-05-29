@@ -20,8 +20,11 @@ export function AssessmentPage() {
     setMessage(null);
     try {
       await complete(intake.id);
-      speakAssessmentCall(intake.plate_number, intake.vehicle_model);
-      setMessage(`${intake.plate_number} ${intake.vehicle_model} — 호출 안내를 재생했습니다.`);
+      const mode = await speakAssessmentCall(intake.plate_number, intake.vehicle_model);
+      const modeLabel = mode === "neural" ? "고품질 음성" : "브라우저 음성";
+      setMessage(
+        `${intake.plate_number} ${intake.vehicle_model} — 호출 안내 재생 (${modeLabel})`,
+      );
     } catch (err) {
       setMessage(err instanceof Error ? err.message : "처리에 실패했습니다.");
     } finally {
