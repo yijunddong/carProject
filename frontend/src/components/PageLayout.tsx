@@ -5,7 +5,7 @@ import { LogoHeader } from "./LogoHeader";
 interface PageLayoutProps {
   title: string;
   subtitle?: string;
-  variant?: "default" | "display";
+  variant?: "default" | "display" | "reception";
   showNav?: boolean;
   children: ReactNode;
 }
@@ -17,10 +17,17 @@ export function PageLayout({
   showNav = false,
   children,
 }: PageLayoutProps) {
+  const isReception = variant === "reception";
+
   return (
     <div className={`page page--${variant}`}>
-      <LogoHeader title={title} subtitle={subtitle} showNav={showNav} />
-      <ConnectionBanner />
+      <LogoHeader
+        title={title}
+        subtitle={subtitle}
+        showNav={showNav}
+        showConnectionIcon={isReception}
+      />
+      {!isReception && <ConnectionBanner />}
       <main className="page__main">{children}</main>
     </div>
   );
