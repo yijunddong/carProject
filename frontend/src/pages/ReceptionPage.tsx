@@ -96,36 +96,40 @@ export function ReceptionPage() {
               </div>
             </div>
             <form onSubmit={handleSubmit} className="reception-form">
-              <div className="form-field form-field--plate">
-                <label htmlFor="plate">차량번호 4자리</label>
-                <input
-                  id="plate"
-                  value={plate}
-                  onChange={(e) => handlePlateChange(e.target.value)}
-                  placeholder="1234"
-                  autoComplete="off"
-                  inputMode="numeric"
-                  maxLength={4}
-                  pattern="[0-9]{4}"
-                />
+              <div className="reception-form__fields">
+                <div className="form-field form-field--plate">
+                  <label htmlFor="plate">차량번호 4자리</label>
+                  <input
+                    id="plate"
+                    value={plate}
+                    onChange={(e) => handlePlateChange(e.target.value)}
+                    placeholder="1234"
+                    autoComplete="off"
+                    inputMode="numeric"
+                    maxLength={4}
+                    pattern="[0-9]{4}"
+                  />
+                </div>
+                <div className="form-field">
+                  <label htmlFor="model">차종</label>
+                  <input
+                    id="model"
+                    value={model}
+                    onChange={(e) => setModel(e.target.value)}
+                    placeholder="i30"
+                    autoComplete="off"
+                  />
+                </div>
               </div>
-              <div className="form-field">
-                <label htmlFor="model">차종</label>
-                <input
-                  id="model"
-                  value={model}
-                  onChange={(e) => setModel(e.target.value)}
-                  placeholder="i30"
-                  autoComplete="off"
-                />
-              </div>
-              <div className="form-actions reception-actions">
-                <button type="submit" className="btn btn--primary btn--wide" disabled={submitting}>
-                  {submitting ? "접수 중..." : "접수하기"}
-                </button>
-                <button type="button" className="btn btn--secondary" onClick={() => void refresh()}>
-                  새로고침
-                </button>
+              <div className="reception-form__controls">
+                <div className="form-actions reception-actions">
+                  <button type="submit" className="btn btn--primary btn--wide" disabled={submitting}>
+                    {submitting ? "접수 중..." : "접수하기"}
+                  </button>
+                  <button type="button" className="btn btn--secondary" onClick={() => void refresh()}>
+                    새로고침
+                  </button>
+                </div>
               </div>
               {message && (
                 <p className={`form-message form-message--${message.type === "ok" ? "success" : "error"}`}>
