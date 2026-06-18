@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'car_backend',
       cwd: '/mnt/pgdata/data/carProject/backend',
-      script: './start.sh',
+      script: './run.sh',
       interpreter: 'bash',
       autorestart: true,
       watch: false,
